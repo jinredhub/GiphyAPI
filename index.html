@@ -65,16 +65,37 @@
 					url: queryURL,
 					method: "GET",
 				}).done(function(response){
-					console.log(response.data[0].images.fixed_height.url);
-					for (var i=0; i<response.data.length; i++){
-						var newDiv = $("<div>");
-						newDiv.html("<img src='" + response.data[i].images.fixed_height.url + "''>");
-						$("#animalResult").append(newDiv);
-					}
-				})
+					console.log(response.data);
 
-				
+					// response.data[i].images.fixed_height.url
+					// response.data[i].images.fixed_height_still.url
+
+					for (var i=0; i<response.data.length; i++){
+						var newImg = $("<img>");
+						// newDiv.html("<img src='" + response.data[i].images.fixed_height_still.url + "''>");
+						newImg.attr({"data-state":"still", "src":response.data[i].images.fixed_height_still.url, "data-still":response.data[i].images.fixed_height_still.url, "data-animate":response.data[i].images.fixed_height.url});
+						newImg.addClass("gif");
+
+						$("#animalResult").append(newImg);
+					}
+				});
 			}
+
+			$(document).on("click", ".gif", function(){
+				console.log("img clicked");
+				if ($(this).attr("data-state") === "still"){
+					console.log("still");
+					$(this).attr("src", $(this).attr("data-animate"));
+					$(this).attr("data-state", "animate");
+				}
+				else {
+					console.log("animate");
+					$(this).attr("src", $(this).attr("data-still"));
+					$(this).attr("data-state", "still");
+				}
+			});
+
+			
 
 			renderBtns();
 			
