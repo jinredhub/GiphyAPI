@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>New Webpage</title>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    </head>
+    <body>
+    	<div id="animalBtns"></div>
+
+    	<div id="animalResult"></div>
+
+    	<form>
+    		<label for="textAnimalName">Add an Animal</label>
+    		<input type="text" id="textAnimalName">
+    		<input type="submit" id="addBtn" value="submit">
+    	</form>
+
+		<script>
+			var buttons = ["cat", "dog", "bird"];
+
+			$("#addBtn").on("click", function(event){
+				console.log("submit btn clicked");
+				event.preventDefault();
+				var animalName = $("#textAnimalName").val();
+				buttons.push(animalName);
+				renderBtns();
+			});
+
+			function renderBtns(){
+				console.log("rendering buttons");
+				$("#animalBtns").empty();
+				for (var i=0; i<buttons.length; i++){
+					newBtn = $("<button>");
+					newBtn.text(buttons[i]);
+					newBtn.addClass("btn");
+					$("#animalBtns").append(newBtn);
+				}
+			}
+
+			$(document).on("click", ".btn", displayRequest);
+
+			// $(".btn").on("click", function(){
+			// 	console.log("animal btn clicked");
+			// 	displayRequest();
+			// })
+
+			
+
+			function displayRequest(){
+				console.log("displaying request");
+				$("#animalResult").empty();
+
+				var animal = $(this).text();
+				var queryURL = "http://api.giphy.com/v1/gifs/search";
+
+				queryURL += "?" + $.param({
+					"api_key": "1bafd13581464249a37388d6d55fe348",
+					"q": animal,
+					"limit": 10,
+					"rating": "g",
+				});
+
+				$.ajax({
+					url: queryURL,
+					method: "GET",
+				}).done(function(response){
+					console.log(response.data[0].images.fixed_height.url);
+					for (var i=0; i<response.data.length; i++){
+						var newDiv = $("<div>");
+						newDiv.html("<img src='" + response.data[i].images.fixed_height.url + "''>");
+						$("#animalResult").append(newDiv);
+					}
+				})
+
+				
+			}
+
+			renderBtns();
+			
+		</script>
+
+    </body>
+</html>
+
+<!-- On the top of scree, there are lots of buttons with name of animals.
+When you click it, 10 images will show up from gifty api.
+When you click on image, video will start.
+When you click it again, it stops.
+
+User can also add a button form the input.
+ -->
