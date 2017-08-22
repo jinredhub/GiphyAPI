@@ -1,0 +1,24 @@
+#bg{
+	width: 100%;
+	background-color: black;
+}
+#bgImg{
+	background-image: url("../images/bg.jpg");
+	background-repeat: no-repeat;
+	width: 1400px;
+	height: 800px;
+	margin: 0 auto;
+}
+
+#animalResult{
+	background-image: url("../images/film.jpg");
+	background-repeat: repeat-y;
+	text-align: center;
+	width: 300px;
+	height: 750px;
+	overflow: auto;
+	margin-left: 50px;
+}
+.gif{
+	margin: 10px 0;
+}

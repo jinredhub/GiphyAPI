@@ -2,19 +2,29 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>New Webpage</title>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <title>Gif Heaven</title>
+        <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="assets/css/style.css">
     </head>
     <body>
-    	<div id="animalBtns"></div>
+    	<div id="bg">
+	    	<div id="title">
+	    		<form>
+		    		<label for="textAnimalName">Add an Animal</label>
+		    		<input type="text" id="textAnimalName">
+		    		<input type="submit" id="addBtn" value="submit">
+		    	</form>
+		    	<div id="animalBtns"></div>
+	    	</div>
 
-    	<div id="animalResult"></div>
 
-    	<form>
-    		<label for="textAnimalName">Add an Animal</label>
-    		<input type="text" id="textAnimalName">
-    		<input type="submit" id="addBtn" value="submit">
-    	</form>
+			<div id="bgImg">
+			<br>
+		    	<div id="animalResult"></div>
+			</div>
+		</div>
 
 		<script>
 			var buttons = ["cat", "dog", "bird"];
@@ -52,7 +62,7 @@
 				$("#animalResult").empty();
 
 				var animal = $(this).text();
-				var queryURL = "http://api.giphy.com/v1/gifs/search";
+				var queryURL = "https://api.giphy.com/v1/gifs/search";
 
 				queryURL += "?" + $.param({
 					"api_key": "1bafd13581464249a37388d6d55fe348",
@@ -71,12 +81,14 @@
 					// response.data[i].images.fixed_height_still.url
 
 					for (var i=0; i<response.data.length; i++){
+						var newDiv = $("<div>");
 						var newImg = $("<img>");
 						// newDiv.html("<img src='" + response.data[i].images.fixed_height_still.url + "''>");
-						newImg.attr({"data-state":"still", "src":response.data[i].images.fixed_height_still.url, "data-still":response.data[i].images.fixed_height_still.url, "data-animate":response.data[i].images.fixed_height.url});
+						newImg.attr({"data-state":"still", "src":response.data[i].images.fixed_width_still.url, "data-still":response.data[i].images.fixed_width_still.url, "data-animate":response.data[i].images.fixed_width.url});
 						newImg.addClass("gif");
 
-						$("#animalResult").append(newImg);
+						newDiv.append(newImg);
+						$("#animalResult").append(newDiv);
 					}
 				});
 			}
