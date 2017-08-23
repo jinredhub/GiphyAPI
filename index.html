@@ -10,26 +10,35 @@
     </head>
     <body>
     	<div id="bg">
-	    	<div id="title">
-	    		<form>
-		    		<label for="textAnimalName">Add an Animal</label>
-		    		<input type="text" id="textAnimalName">
-		    		<input type="submit" id="addBtn" value="submit">
-		    	</form>
-		    	<div id="animalBtns"></div>
+	    	<div id="titleBar">
+	    		<div id="logoDiv">
+	    			<img id="logoImg" src="assets/images/logo.png">
+	    		</div>
+	    		<div id="formDiv">
+		    		<form>
+			    		<label for="textAnimalName">Add an Animal</label>
+			    		<input type="text" id="textAnimalName">
+			    		<input type="submit" id="addBtn" value="submit">
+			    	</form>
+			    	<div id="animalBtns"></div>
+		    	</div>
 	    	</div>
-
-
+			<br><br><br>
 			<div id="bgImg">
 			<br>
-		    	<div id="animalResult"></div>
+		    	<div id="gifResult"></div>
 			</div>
 		</div>
 
 		<script>
 			var buttons = ["cat", "dog", "bird"];
+			var cameraIsOn = false;
 
 			$("#addBtn").on("click", function(event){
+				// if (cameraIsOn === false){
+				// 	console.log("change bgImg to light");
+				// 	$("#bgImg").css("background-image", "url('../images/bgLight.jpg')");
+				// }
 				console.log("submit btn clicked");
 				event.preventDefault();
 				var animalName = $("#textAnimalName").val();
@@ -48,18 +57,20 @@
 				}
 			}
 
-			$(document).on("click", ".btn", displayRequest);
+			// $(document).on("click", ".btn", function(){
+			// 	renderRequest();
+			// });
+			$(document).on("click", ".btn", renderRequest);
 
-			// $(".btn").on("click", function(){
-			// 	console.log("animal btn clicked");
-			// 	displayRequest();
-			// })
+			// function anotherOne(){
+			// 	console.log("another function");
+			// }
 
 			
 
-			function displayRequest(){
-				console.log("displaying request");
-				$("#animalResult").empty();
+			function renderRequest(){
+				console.log("rendering request");
+				$("#gifResult").empty();
 
 				var animal = $(this).text();
 				var queryURL = "https://api.giphy.com/v1/gifs/search";
@@ -88,7 +99,7 @@
 						newImg.addClass("gif");
 
 						newDiv.append(newImg);
-						$("#animalResult").append(newDiv);
+						$("#gifResult").append(newDiv);
 					}
 				});
 			}
