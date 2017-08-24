@@ -16,9 +16,9 @@
 	    		</div>
 	    		<div id="formDiv">
 		    		<form>
-			    		<label for="textAnimalName">Add an Animal</label>
+			    		<label for="textAnimalName">Add Scary Stuff</label>
 			    		<input type="text" id="textAnimalName">
-			    		<input type="submit" id="addBtn" value="submit">
+			    		<input type="submit" id="submitBtn" value="submit">
 			    	</form>
 			    	<div id="animalBtns"></div>
 		    	</div>
@@ -30,15 +30,15 @@
 			</div>
 		</div>
 
+		<audio id="scaryAudio">
+			<source src="assets/sounds/creepy5.wav" type="audio/mpeg">
+		</audio>
+
 		<script>
-			var buttons = ["cat", "dog", "bird"];
+			var buttons = ["ghost", "skull", "zombie", "witch", "spider", "mummy", "coffin", "haunted house", "frankenstein" ];
 			var cameraIsOn = false;
 
-			$("#addBtn").on("click", function(event){
-				// if (cameraIsOn === false){
-				// 	console.log("change bgImg to light");
-				// 	$("#bgImg").css("background-image", "url('../images/bgLight.jpg')");
-				// }
+			$("#submitBtn").on("click", function(event){
 				console.log("submit btn clicked");
 				event.preventDefault();
 				var animalName = $("#textAnimalName").val();
@@ -57,22 +57,20 @@
 				}
 			}
 
-			// $(document).on("click", ".btn", function(){
-			// 	renderRequest();
-			// });
-			$(document).on("click", ".btn", renderRequest);
+			$(document).on("click", ".btn", function(){
+				console.log("btn clicked");
+				renderRequest(this);
+				switchBgImg();
+				playScaryAudio();
+			});
 
-			// function anotherOne(){
-			// 	console.log("another function");
-			// }
+			// $(document).on("click", ".btn", renderRequest);
 
-			
-
-			function renderRequest(){
+			function renderRequest(that){
 				console.log("rendering request");
 				$("#gifResult").empty();
 
-				var animal = $(this).text();
+				var animal = $(that).text();
 				var queryURL = "https://api.giphy.com/v1/gifs/search";
 
 				queryURL += "?" + $.param({
@@ -118,9 +116,22 @@
 				}
 			});
 
-			
+			function switchBgImg(){
+				if (cameraIsOn === false){
+					console.log("change bgImg to light");
+					$("#bgImg").css("background-image", "url(assets/images/bgLight.jpg)");
+					cameraIsOn = true;
+				}
+			}
+
+			var audioScary = document.getElementById("scaryAudio");
+			function playScaryAudio(){
+				audioScary.play();
+			}
 
 			renderBtns();
+
+
 			
 		</script>
 
