@@ -78,7 +78,7 @@
 					"api_key": "1bafd13581464249a37388d6d55fe348",
 					"q": animal,
 					"limit": 10,
-					"rating": "g",
+					"rating": "PG",
 				});
 
 				$.ajax({
@@ -93,11 +93,15 @@
 					for (var i=0; i<response.data.length; i++){
 						var newDiv = $("<div>");
 						var newImg = $("<img>");
+						var newSpan = $("<span>");
 						// newDiv.html("<img src='" + response.data[i].images.fixed_height_still.url + "''>");
 						newImg.attr({"data-state":"still", "src":response.data[i].images.fixed_width_still.url, "data-still":response.data[i].images.fixed_width_still.url, "data-animate":response.data[i].images.fixed_width.url});
 						newImg.addClass("gif");
+						newSpan.text(response.data[i].rating);
 
 						newDiv.append(newImg);
+						newDiv.append("<br>");
+						newDiv.append(newSpan);
 						$("#gifResult").append(newDiv);
 					}
 				});
