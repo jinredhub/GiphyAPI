@@ -16,9 +16,10 @@
 	    		</div>
 	    		<div id="formDiv">
 		    		<form>
-			    		<label for="textAnimalName">Add Scary Stuff</label>
+			    		<label for="textAnimalName">Add Scary Stuff :</label>
 			    		<input type="text" id="textAnimalName">
 			    		<input type="submit" id="submitBtn" value="submit">
+			    		<button id="stopBtn">Stop the Film</button>
 			    	</form>
 			    	<div id="animalBtns"></div>
 		    	</div>
@@ -30,12 +31,12 @@
 			</div>
 		</div>
 
-		<audio id="scaryAudio">
+		<audio loop id="scaryAudio">
 			<source src="assets/sounds/creepy5.wav" type="audio/mpeg">
 		</audio>
 
 		<script>
-			var buttons = ["ghost", "skull", "zombie", "witch", "spider", "mummy", "coffin", "haunted house", "frankenstein" ];
+			var buttons = ["witch", "skull", "zombie", "ghost", "spider", "mummy", "coffin", "haunted house", "frankenstein" ];
 			var cameraIsOn = false;
 
 			$("#submitBtn").on("click", function(event){
@@ -60,7 +61,7 @@
 			$(document).on("click", ".btn", function(){
 				console.log("btn clicked");
 				renderRequest(this);
-				switchBgImg();
+				turnBgImgLight();
 				playScaryAudio();
 			});
 
@@ -116,7 +117,15 @@
 				}
 			});
 
-			function switchBgImg(){
+			function turnBgImgDark(){
+				if(cameraIsOn === true){
+					console.log("change bgImg to dark");
+					$("#bgImg").css("background-image", "url(assets/images/bgDark.jpg)");
+					cameraIsOn = false;
+				}
+			}
+
+			function turnBgImgLight(){
 				if (cameraIsOn === false){
 					console.log("change bgImg to light");
 					$("#bgImg").css("background-image", "url(assets/images/bgLight.jpg)");
@@ -128,6 +137,15 @@
 			function playScaryAudio(){
 				audioScary.play();
 			}
+
+			$("#stopBtn").on("click", function(event){
+				event.preventDefault();
+				console.log("stopBtn pressed");
+				audioScary.pause();
+				$("#gifResult").empty();
+				turnBgImgDark();
+
+			})
 
 			renderBtns();
 
