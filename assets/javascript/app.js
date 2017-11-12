@@ -1,17 +1,21 @@
-
+			
+			// preset array for buttons
 			var topics = ["witch", "skull", "zombie", "ghost", "spider", "mummy", "coffin", "haunted house", "frankenstein" ];
+			// remain false until button is pressed
 			var cameraIsOn = false;
 
+			// retreve user input 
 			$("#submitBtn").on("click", function(event){
-				console.log("submit btn clicked");
+				// console.log("submit btn clicked");
 				event.preventDefault();
 				var animalName = $("#textAnimalName").val();
 				topics.push(animalName);
 				renderBtns();
 			});
 
+			// render all button from topic array
 			function renderBtns(){
-				console.log("rendering buttons");
+				// console.log("rendering buttons");
 				$("#animalBtns").empty();
 				for (var i=0; i<topics.length; i++){
 					newBtn = $("<button>");
@@ -21,8 +25,9 @@
 				}
 			}
 
+			// event deligation for buttons created
 			$(document).on("click", ".btn", function(){
-				console.log("btn clicked");
+				// console.log("btn clicked");
 				renderRequest(this);
 				turnBgImgLight();
 				playScaryAudio();
@@ -30,8 +35,9 @@
 
 			// $(document).on("click", ".btn", renderRequest);
 
+			// ajax call for gipy api then diaplay gif
 			function renderRequest(that){
-				console.log("rendering request");
+				// console.log("rendering request");
 				$("#gifResult").empty();
 
 				var animal = $(that).text();
@@ -70,8 +76,9 @@
 				});
 			}
 
+			// event deligation for gif created. Play and Stop gif animation.
 			$(document).on("click", ".gif", function(){
-				console.log("img clicked");
+				// console.log("img clicked");
 				if ($(this).attr("data-state") === "still"){
 					console.log("still");
 					$(this).attr("src", $(this).attr("data-animate"));
@@ -84,35 +91,40 @@
 				}
 			});
 
+			// change bg img when gif is playing
 			function turnBgImgDark(){
 				if(cameraIsOn === true){
-					console.log("change bgImg to dark");
+					// console.log("change bgImg to dark");
 					$("#bgImg").css("background-image", "url(assets/images/bgDark.jpg)");
 					cameraIsOn = false;
 				}
 			}
 
+			// change bg img when gif is not playing
 			function turnBgImgLight(){
 				if (cameraIsOn === false){
-					console.log("change bgImg to light");
+					// console.log("change bgImg to light");
 					$("#bgImg").css("background-image", "url(assets/images/bgLight.jpg)");
 					cameraIsOn = true;
 				}
 			}
 
+			// play audio
 			var audioScary = document.getElementById("scaryAudio");
 			function playScaryAudio(){
 				audioScary.play();
 			}
 
+			// stop audio and gif animation
 			$("#stopBtn").on("click", function(event){
 				event.preventDefault();
-				console.log("stopBtn pressed");
+				// console.log("stopBtn pressed");
 				audioScary.pause();
 				$("#gifResult").empty();
 				turnBgImgDark();
 
 			})
 
+			// render buttons when page load
 			renderBtns();
 

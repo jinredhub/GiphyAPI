@@ -4,12 +4,16 @@
         <meta charset="utf-8">
         <title>Gif Heaven</title>
         <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+        <!-- bootstrap cdn -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+        <!-- jqury cdn -->
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<!-- style css -->
 		<link rel="stylesheet" type="text/css" href="assets/css/style.css">
     </head>
     <body>
     	<div id="bg">
+    		<!-- logo, input and button are here -->
 	    	<div id="titleBar">
 	    		<div id="logoDiv">
 	    			<img id="logoImg" src="assets/images/logo.png">
@@ -25,12 +29,14 @@
 		    	</div>
 	    	</div>
 			<br><br><br>
+			<!-- bg image will change when button is on -->
 			<div id="bgImg">
 			<br>
 		    	<div id="gifResult"></div>
 			</div>
 		</div>
 
+		<!-- audio will be palyed when button is on -->
 		<audio loop id="scaryAudio">
 			<source src="assets/sounds/creepy5.wav" type="audio/mpeg">
 		</audio>
@@ -39,11 +45,3 @@
 
     </body>
 </html>
-
-<!-- On the top of scree, there are lots of buttons with name of animals.
-When you click it, 10 images will show up from gifty api.
-When you click on image, video will start.
-When you click it again, it stops.
-
-User can also add a button form the input.
- -->
